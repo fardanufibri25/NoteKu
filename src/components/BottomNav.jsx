@@ -6,7 +6,7 @@ const ITEMS = [
 
 export default function BottomNav({ active }) {
   return (
-    <nav className="pb-safe fixed inset-x-0 bottom-0 z-50 bg-surface-container-lowest/95 shadow-[0_-4px_16px_rgba(15,23,42,0.06)] backdrop-blur-xl">
+    <nav className="pb-safe fixed inset-x-0 bottom-0 z-50 bg-surface-container-lowest/95 shadow-nav backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-3xl items-center justify-around px-space-xs">
         {ITEMS.map((item) => {
           const isActive = item.key === active

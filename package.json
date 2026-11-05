@@ -8,15 +8,16 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "oxlint",
-    "test": "node --test src/lib/db.test.js"
+    "icons": "python scripts/subset-icons.py",
+    "test": "node --test src/lib/db.test.js src/lib/title.test.js"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
-    "@fontsource/material-symbols-outlined": "^5.3.9",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@fontsource/material-symbols-outlined": "^5.3.9",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",

@@ -26,7 +26,8 @@ Responsi Praktikum Pengembangan Perangkat Bergerak (PPB) — Modul 5.
 - **vite-plugin-pwa 2** (Workbox) — manifest, service worker, precache
 - **IndexedDB** native — penyimpanan catatan, tanpa backend
 - **Hash routing** (`#/notes`, `#/profile`, ...) — refresh di Vercel tidak 404
-- Font **Inter** dan **Material Symbols Outlined** di-self-host agar ikon tetap tampil offline
+- Font **Inter** dan **Material Symbols Outlined** di-self-host agar ikon tetap tampil offline;
+  font ikon di-subset ke 51 glyph yang dipakai (`npm run icons`)
 - `oxlint` + unit test Node (`node:test` + `fake-indexeddb`)
 
 ## Fitur
@@ -55,10 +56,15 @@ Perintah lain:
 
 ```bash
 npm run lint      # oxlint
-npm test          # unit test IndexedDB
+npm test          # unit test IndexedDB + judul rute
 npm run build     # produksi ke dist/
 npm run preview   # jalankan hasil build di http://localhost:4173
+npm run icons     # rebuild font ikon setelah menambah ikon baru
 ```
+
+`npm run icons` memerlukan Python + `pip install fonttools brotli`. Font asli diambil dari
+`@fontsource/material-symbols-outlined` (dev dependency); hasilnya disimpan di
+`src/assets/material-symbols-subset.woff2` dan ikut ter-precache service worker.
 
 > Service worker hanya aktif di `localhost` (secure context) atau HTTPS. Untuk menguji PWA,
 > gunakan `npm run preview` atau hasil deployment Vercel, bukan membuka file `dist/index.html`
@@ -139,9 +145,13 @@ src/
   lib/
     db.js                 # IndexedDB: getAllNotes, putNote, deleteNoteById
     db.test.js            # unit test CRUD penyimpanan
+    title.js              # judul dokumen per rute
+    title.test.js         # unit test judul rute
     format.js             # tanggal id-ID, estimasi baca, warna mata kuliah
+  assets/                 # font ikon hasil subset
   components/             # Header, navigasi, kartu catatan, dialog, FAB, dll.
   pages/                  # Dashboard, NotesList, NoteDetail, NoteForm, Profile, NotFound
+scripts/subset-icons.py   # regenerate src/assets/material-symbols-subset.woff2
 public/                   # logo, avatar, ikon PWA (192/512/maskable/apple)
 ```
 

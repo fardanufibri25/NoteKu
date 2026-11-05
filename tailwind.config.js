@@ -63,6 +63,10 @@ export default {
         xl: '0.75rem',
         full: '9999px',
       },
+      boxShadow: {
+        header: '0 1px 8px rgba(0, 0, 0, 0.04)',
+        nav: '0 -4px 16px rgba(15, 23, 42, 0.06)',
+      },
       spacing: {
         gutter: '1rem',
         'space-xl': '2rem',
@@ -89,7 +93,7 @@ export default {
         'headline-sm': ['18px', { lineHeight: '24px', fontWeight: '600' }],
         'body-md': ['14px', { lineHeight: '22px', fontWeight: '400' }],
         'label-md': ['12px', { lineHeight: '16px', fontWeight: '600' }],
-        'label-sm': ['11px', { lineHeight: '14px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', fontWeight: '500' }],
         'headline-lg-mobile': ['24px', { lineHeight: '32px', fontWeight: '700' }],
         'headline-md': ['20px', { lineHeight: '28px', fontWeight: '600' }],
         'body-lg': ['16px', { lineHeight: '26px', fontWeight: '400' }],

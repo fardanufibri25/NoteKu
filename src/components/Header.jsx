@@ -4,7 +4,7 @@ export default function Header({ subtitle, onBack }) {
   const online = useOnlineStatus()
 
   return (
-    <header className="pt-safe fixed inset-x-0 top-0 z-50 bg-surface/90 shadow-[0_1px_8px_rgba(0,0,0,0.04)] backdrop-blur-xl">
+    <header className="pt-safe fixed inset-x-0 top-0 z-50 bg-surface/90 shadow-header backdrop-blur-xl">
       <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between px-margin">
         {onBack ? (
           <div className="flex min-w-0 items-center gap-space-xs">

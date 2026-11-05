@@ -18,9 +18,7 @@ export default function Dashboard() {
   const latest = notes[0]
   const recentNotes = notes.slice(0, 4)
   const weeklyCount = notes.filter((note) => Date.now() - new Date(note.updatedAt).getTime() <= WEEK_MS).length
-  // shortcut: target mingguan tetap 5, jadikan pengaturan kalau nanti dibutuhkan.
-  const weeklyTarget = 5
-  const weeklyPercent = Math.min(100, Math.round((weeklyCount / weeklyTarget) * 100))
+  const weeklyPercent = notes.length ? Math.round((weeklyCount / notes.length) * 100) : 0
 
   function submitSearch(event) {
     event.preventDefault()
@@ -208,7 +206,7 @@ export default function Dashboard() {
         <div className="min-w-0 flex-1">
           <h3 className="font-label-lg text-label-lg text-on-surface">Aktivitas Minggu Ini</h3>
           <p className="font-body-sm text-body-sm text-on-surface-variant">
-            {weeklyCount} dari target {weeklyTarget} catatan minggu ini.
+            {weeklyCount} dari {notes.length} catatan diperbarui dalam 7 hari terakhir.
           </p>
         </div>
       </div>

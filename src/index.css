@@ -36,7 +36,7 @@
   }
 
   .pb-tab {
-    padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px));
   }
 
   .pb-safe-content {
@@ -57,6 +57,14 @@
   .animate-pulse {
     animation: none;
   }
+}
+
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-display: block;
+  font-weight: 400;
+  src: url('./assets/material-symbols-subset.woff2') format('woff2');
 }
 
 .material-symbols-outlined {

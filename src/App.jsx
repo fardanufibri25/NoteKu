@@ -1,4 +1,6 @@
+import { useEffect, useRef } from 'react'
 import { useHashRoute } from './hooks/useHashRoute'
+import { pageTitle } from './lib/title'
 import { NotesProvider } from './context/NotesContext'
 import { ToastProvider } from './context/ToastContext'
 import Dashboard from './pages/Dashboard'
@@ -10,6 +12,14 @@ import NotFound from './pages/NotFound'
 
 function Router() {
   const { path, query } = useHashRoute()
+  const previousPath = useRef(path)
+
+  useEffect(() => {
+    document.title = pageTitle(path)
+    if (previousPath.current === path) return
+    previousPath.current = path
+    document.querySelector('main')?.focus()
+  }, [path])
 
   let page
   if (path === '/') page = <Dashboard />

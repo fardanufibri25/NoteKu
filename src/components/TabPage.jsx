@@ -6,7 +6,7 @@ export default function TabPage({ subtitle, active, showOffline = true, children
   return (
     <>
       <Header subtitle={subtitle} />
-      <main className="pt-header mx-auto w-full max-w-3xl flex-1 px-margin pb-tab">
+      <main tabIndex={-1} className="pt-header mx-auto w-full max-w-3xl flex-1 px-margin pb-tab outline-none">
         {showOffline && <OfflineBanner />}
         {children}
       </main>
