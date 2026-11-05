@@ -19,7 +19,7 @@ export default function BottomNav({ active }) {
                 isActive ? 'text-primary-container' : 'text-on-surface-variant hover:text-on-surface'
               }`}
             >
-              <span className="material-symbols-outlined text-[24px]">{item.icon}</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[24px]">{item.icon}</span>
               <span className="mt-0.5 font-label-sm text-label-sm">{item.label}</span>
             </a>
           )

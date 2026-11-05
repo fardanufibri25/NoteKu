@@ -41,19 +41,19 @@ export default function Dashboard() {
           <p className="font-body-sm text-body-sm text-on-surface-variant">Siap belajar &amp; catat materi hari ini?</p>
         </div>
         <div className="flex shrink-0 items-center gap-1 rounded-full bg-surface-container px-2.5 py-1.5 shadow-sm">
-          <span className="material-symbols-outlined text-[16px] text-tertiary">edit_note</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-tertiary">edit_note</span>
           <span className="font-label-sm text-label-sm font-bold text-on-surface">{notes.length} catatan</span>
         </div>
       </div>
 
       <form onSubmit={submitSearch} className="mb-5 flex items-center gap-2">
         <div className="relative flex flex-1 items-center">
-          <span className="material-symbols-outlined absolute left-3.5 text-[20px] text-outline">search</span>
+          <span aria-hidden="true" className="material-symbols-outlined absolute left-3.5 text-[20px] text-outline">search</span>
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             aria-label="Cari catatan kuliah"
-            className="h-12 w-full rounded-xl bg-surface-container-lowest pl-10 pr-10 font-body-md text-body-md text-on-surface shadow-sm transition-all placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container/40"
+            className="h-12 w-full rounded-xl bg-surface-container-lowest pl-10 pr-12 font-body-md text-body-md text-on-surface shadow-sm transition-all placeholder:text-on-surface-variant/75 focus:outline-none focus:ring-2 focus:ring-primary-container/40"
             placeholder="Cari catatan kuliah..."
             type="text"
           />
@@ -62,19 +62,19 @@ export default function Dashboard() {
               type="button"
               aria-label="Hapus pencarian"
               onClick={() => setQuery('')}
-              className="absolute right-3 text-outline hover:text-on-surface"
+              className="absolute right-1 flex h-10 w-10 items-center justify-center rounded-full text-outline hover:bg-surface-container hover:text-on-surface"
             >
-              <span className="material-symbols-outlined text-[18px]">cancel</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">cancel</span>
             </button>
           )}
         </div>
         <button
           type="button"
-          aria-label="Buka filter catatan"
+          aria-label="Buka daftar dan filter catatan"
           onClick={() => navigate('/notes')}
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-container text-on-surface-variant shadow-sm transition-transform active:scale-95"
         >
-          <span className="material-symbols-outlined text-[20px]">tune</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[20px]">tune</span>
         </button>
       </form>
 
@@ -83,7 +83,7 @@ export default function Dashboard() {
           <div className="pointer-events-none absolute -right-3 -top-3 h-16 w-16 rounded-full bg-primary-fixed/40 blur-xl" />
           <div className="mb-2 flex items-center justify-between">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-fixed text-primary">
-              <span className="material-symbols-outlined text-[20px]">description</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">description</span>
             </div>
             <span className="rounded-full bg-primary-fixed/70 px-2 py-0.5 font-label-sm text-label-sm text-on-primary-fixed">Lokal</span>
           </div>
@@ -100,7 +100,7 @@ export default function Dashboard() {
           <div className="pointer-events-none absolute -right-3 -top-3 h-16 w-16 rounded-full bg-tertiary-fixed/40 blur-xl" />
           <div className="mb-2 flex items-center justify-between">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-tertiary-fixed text-tertiary">
-              <span className="material-symbols-outlined text-[20px]">folder_special</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">folder_special</span>
             </div>
             <span className="rounded-full bg-tertiary-fixed/70 px-2 py-0.5 font-label-sm text-label-sm text-on-tertiary-fixed">Aktif</span>
           </div>
@@ -117,7 +117,7 @@ export default function Dashboard() {
       {latest ? (
         <div className="mb-5 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-primary-fixed to-surface-container p-3.5 shadow-sm">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-container-lowest text-primary-container shadow-sm">
-            <span className="material-symbols-outlined text-[22px]">auto_stories</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[22px]">auto_stories</span>
           </div>
           <div className="min-w-0 flex-1">
             <p className="truncate font-label-md text-label-md text-on-surface">Catatan terakhir: {latest.title}</p>
@@ -134,7 +134,7 @@ export default function Dashboard() {
       ) : (
         <div className="mb-5 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-primary-fixed to-surface-container p-3.5 shadow-sm">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-container-lowest text-primary-container shadow-sm">
-            <span className="material-symbols-outlined text-[22px]">auto_stories</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[22px]">auto_stories</span>
           </div>
           <div className="min-w-0 flex-1">
             <p className="font-label-md text-label-md text-on-surface">Belum ada catatan kuliah</p>
@@ -161,7 +161,7 @@ export default function Dashboard() {
         </div>
         <a href="#/notes" className="flex items-center font-label-md text-label-md text-primary-container hover:underline">
           Lihat Semua
-          <span className="material-symbols-outlined ml-0.5 text-[16px]">chevron_right</span>
+          <span aria-hidden="true" className="material-symbols-outlined ml-0.5 text-[16px]">chevron_right</span>
         </a>
       </div>
 

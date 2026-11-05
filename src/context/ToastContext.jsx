@@ -20,11 +20,11 @@ export function ToastProvider({ children }) {
       <div
         role="status"
         aria-live="polite"
-        className={`fixed top-20 inset-x-4 z-[60] mx-auto flex max-w-[350px] items-center gap-2 rounded-xl bg-inverse-surface px-4 py-2.5 text-body-sm font-body-sm text-inverse-on-surface shadow-lg transition-all duration-300 ${
-          toast ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
+        className={`fixed bottom-[calc(9rem+env(safe-area-inset-bottom,0px))] inset-x-4 z-[60] mx-auto flex max-w-[350px] items-center gap-2 rounded-xl bg-inverse-surface px-4 py-2.5 text-body-sm font-body-sm text-inverse-on-surface shadow-lg transition-all duration-300 ${
+          toast ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
         }`}
       >
-        <span className={`material-symbols-outlined text-[18px] ${toast?.tone === 'error' ? 'text-error-container' : 'text-tertiary-fixed'}`}>
+        <span aria-hidden="true" className={`material-symbols-outlined text-[18px] ${toast?.tone === 'error' ? 'text-error-container' : 'text-tertiary-fixed'}`}>
           {toast?.tone === 'error' ? 'error' : 'check_circle'}
         </span>
         <span className="flex-1">{toast?.message}</span>

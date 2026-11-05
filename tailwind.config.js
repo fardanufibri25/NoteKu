@@ -51,6 +51,11 @@ export default {
         'primary-container': '#4f46e5',
         tertiary: '#005338',
         outline: '#777587',
+        warning: '#D97706',
+        'warning-container': '#FFFBEB',
+        'on-warning-container': '#92400E',
+        'warning-fixed': '#FDE68A',
+        'on-warning-fixed': '#78350F',
       },
       borderRadius: {
         DEFAULT: '0.25rem',

@@ -14,7 +14,7 @@ export default function Header({ subtitle, onBack }) {
               onClick={onBack}
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-on-surface transition-colors hover:bg-surface-container"
             >
-              <span className="material-symbols-outlined text-[24px]">arrow_back</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[24px]">arrow_back</span>
             </button>
             <img src="/logo.svg" alt="" className="h-7 w-7 shrink-0" />
             <h1 className="truncate font-headline-sm text-headline-sm text-on-surface">{subtitle}</h1>
@@ -26,10 +26,10 @@ export default function Header({ subtitle, onBack }) {
               <div className="flex items-center gap-space-xs">
                 <span className="font-headline-sm text-headline-sm tracking-tight text-on-surface">NoteKu</span>
                 <span
-                  className={online ? 'flex items-center text-primary-container' : 'flex items-center text-[#D97706]'}
-                  title={online ? 'Offline-ready' : 'Mode offline'}
+                  className={online ? 'flex items-center text-primary-container' : 'flex items-center text-warning'}
+                  title={online ? 'Online' : 'Mode offline'}
                 >
-                  <span className="material-symbols-outlined text-[18px]">{online ? 'cloud_done' : 'cloud_off'}</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{online ? 'cloud_done' : 'cloud_off'}</span>
                 </span>
               </div>
               <span className="truncate font-label-sm text-label-sm text-on-surface-variant">{subtitle}</span>

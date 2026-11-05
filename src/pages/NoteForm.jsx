@@ -77,6 +77,16 @@ function NoteFormInner({ note, addNote, updateNote }) {
     if (!effectiveCourse) next.course = 'Mata kuliah wajib dipilih.'
     if (!content.trim()) next.content = 'Isi catatan wajib diisi.'
     setErrors(next)
+    const firstInvalid = next.title
+      ? 'noteTitle'
+      : next.course
+        ? course === '__new__'
+          ? 'customCourse'
+          : 'courseSelect'
+        : next.content
+          ? 'noteContent'
+          : null
+    if (firstInvalid) document.getElementById(firstInvalid)?.focus()
     return Object.keys(next).length === 0
   }
 
@@ -100,8 +110,8 @@ function NoteFormInner({ note, addNote, updateNote }) {
     <StackPage title={note ? 'Edit Catatan' : 'Catatan Baru'} onBack={handleBack}>
       <div className="mb-space-sm flex items-center justify-between rounded-xl bg-surface-container-low px-space-sm py-2">
         <div className="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
-          <span className="material-symbols-outlined text-[16px] text-tertiary">{online ? 'cloud_done' : 'cloud_off'}</span>
-          <span>{online ? 'Tersimpan otomatis di perangkat' : 'Mode luring • tetap tersimpan di perangkat'}</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-tertiary">{online ? 'cloud_done' : 'cloud_off'}</span>
+          <span>{online ? 'Perubahan tersimpan setelah menekan Simpan' : 'Mode luring • simpan tetap di perangkat'}</span>
         </div>
         <div className="flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary">
           <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-tertiary-fixed-dim" />
@@ -120,7 +130,7 @@ function NoteFormInner({ note, addNote, updateNote }) {
                 titleValid ? 'bg-tertiary-fixed/25 text-tertiary' : 'bg-error-container/40 text-error'
               }`}
             >
-              <span className="material-symbols-outlined text-[14px]">{titleValid ? 'check_circle' : 'error'}</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[14px]">{titleValid ? 'check_circle' : 'error'}</span>
               <span>{titleValid ? 'Valid' : 'Kurang'}</span>
             </span>
           </div>
@@ -133,7 +143,8 @@ function NoteFormInner({ note, addNote, updateNote }) {
                 if (errors.title) setErrors((current) => ({ ...current, title: undefined }))
               }}
               aria-invalid={Boolean(errors.title)}
-              className={`h-12 w-full rounded-xl bg-surface-container-lowest px-space-md pr-10 font-body-md text-body-md text-on-surface shadow-sm outline-none transition-all placeholder:text-outline-variant focus:ring-2 ${
+              aria-describedby={errors.title ? 'noteTitleError' : undefined}
+              className={`h-12 w-full rounded-xl bg-surface-container-lowest px-space-md pr-10 font-body-md text-body-md text-on-surface shadow-sm outline-none transition-all placeholder:text-on-surface-variant/75 focus:ring-2 ${
                 errors.title ? 'ring-2 ring-error/60' : 'focus:ring-primary-container/40'
               }`}
               placeholder="Masukkan judul catatan kuliah..."
@@ -142,18 +153,18 @@ function NoteFormInner({ note, addNote, updateNote }) {
             />
             {titleValid && (
               <span className="pointer-events-none absolute right-3 flex items-center text-tertiary">
-                <span className="material-symbols-outlined text-[20px]">task_alt</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[20px]">task_alt</span>
               </span>
             )}
           </div>
           {errors.title ? (
-            <p className="flex items-center gap-1 font-body-sm text-body-sm text-error">
-              <span className="material-symbols-outlined text-[14px]">warning</span>
+            <p id="noteTitleError" role="alert" className="flex items-center gap-1 font-body-sm text-body-sm text-error">
+              <span aria-hidden="true" className="material-symbols-outlined text-[14px]">warning</span>
               {errors.title}
             </p>
           ) : (
             <p className="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
-              <span className="material-symbols-outlined text-[14px]">info</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[14px]">info</span>
               Judul wajib diisi (minimal 5 karakter)
             </p>
           )}
@@ -170,6 +181,8 @@ function NoteFormInner({ note, addNote, updateNote }) {
             <select
               id="courseSelect"
               value={course}
+              aria-invalid={Boolean(errors.course)}
+              aria-describedby={errors.course ? 'courseError' : undefined}
               onChange={(event) => {
                 setCourse(event.target.value)
                 if (errors.course) setErrors((current) => ({ ...current, course: undefined }))
@@ -186,26 +199,29 @@ function NoteFormInner({ note, addNote, updateNote }) {
               </option>
             </select>
             <div className="pointer-events-none absolute right-3 top-1/2 flex -translate-y-1/2 items-center text-on-surface-variant">
-              <span className="material-symbols-outlined text-[22px]">keyboard_arrow_down</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[22px]">keyboard_arrow_down</span>
             </div>
           </div>
           {course === '__new__' && (
             <input
+              id="customCourse"
               value={customCourse}
               onChange={(event) => {
                 setCustomCourse(event.target.value)
                 if (errors.course) setErrors((current) => ({ ...current, course: undefined }))
               }}
               aria-label="Nama mata kuliah baru"
-              className="h-12 w-full rounded-xl bg-surface-container-lowest px-space-md font-body-md text-body-md text-on-surface shadow-sm outline-none placeholder:text-outline-variant focus:ring-2 focus:ring-primary-container/40"
+              aria-invalid={Boolean(errors.course)}
+              aria-describedby={errors.course ? 'courseError' : undefined}
+              className="h-12 w-full rounded-xl bg-surface-container-lowest px-space-md font-body-md text-body-md text-on-surface shadow-sm outline-none placeholder:text-on-surface-variant/75 focus:ring-2 focus:ring-primary-container/40"
               placeholder="Nama mata kuliah baru..."
               type="text"
               autoComplete="off"
             />
           )}
           {errors.course && (
-            <p className="flex items-center gap-1 font-body-sm text-body-sm text-error">
-              <span className="material-symbols-outlined text-[14px]">warning</span>
+            <p id="courseError" role="alert" className="flex items-center gap-1 font-body-sm text-body-sm text-error">
+              <span aria-hidden="true" className="material-symbols-outlined text-[14px]">warning</span>
               {errors.course}
             </p>
           )}
@@ -226,31 +242,32 @@ function NoteFormInner({ note, addNote, updateNote }) {
               if (errors.content) setErrors((current) => ({ ...current, content: undefined }))
             }}
             aria-invalid={Boolean(errors.content)}
-            className={`w-full resize-y rounded-2xl bg-surface-container-lowest p-space-md font-body-md text-body-md leading-relaxed text-on-surface shadow-sm outline-none transition-all placeholder:text-outline-variant focus:ring-2 ${
+            aria-describedby={errors.content ? 'noteContentError' : undefined}
+            className={`w-full resize-y rounded-2xl bg-surface-container-lowest p-space-md font-body-md text-body-md leading-relaxed text-on-surface shadow-sm outline-none transition-all placeholder:text-on-surface-variant/75 focus:ring-2 ${
               errors.content ? 'ring-2 ring-error/60' : 'focus:ring-primary-container/40'
             }`}
             placeholder="Tulis ringkasan materi kuliah, rumus, atau catatan praktikum di sini..."
             rows="11"
           />
           {errors.content ? (
-            <p className="flex items-center gap-1 font-body-sm text-body-sm text-error">
-              <span className="material-symbols-outlined text-[14px]">warning</span>
+            <p id="noteContentError" role="alert" className="flex items-center gap-1 font-body-sm text-body-sm text-error">
+              <span aria-hidden="true" className="material-symbols-outlined text-[14px]">warning</span>
               {errors.content}
             </p>
           ) : (
             <div className="mt-1 flex items-center justify-between px-1 font-label-sm text-label-sm text-on-surface-variant">
               <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px]">short_text</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[14px]">short_text</span>
                 {content.length} karakter • Estimasi baca: {readingMinutes(content)} menit
               </span>
               <span className="flex items-center gap-0.5 text-tertiary">
-                <span className="material-symbols-outlined text-[14px]">offline_bolt</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[14px]">offline_bolt</span>
                 Luring aman
               </span>
             </div>
           )}
           <p className="flex items-start gap-1.5 rounded-lg bg-surface-container-low p-2 font-body-sm text-body-sm text-on-surface-variant/80">
-            <span className="material-symbols-outlined mt-0.5 shrink-0 text-[16px] text-primary">save_as</span>
+            <span aria-hidden="true" className="material-symbols-outlined mt-0.5 shrink-0 text-[16px] text-primary">save_as</span>
             <span>Setelah disimpan, catatan tersedia di perangkat ini dan bisa dibuka tanpa internet.</span>
           </p>
         </div>
@@ -261,7 +278,7 @@ function NoteFormInner({ note, addNote, updateNote }) {
             disabled={saving}
             className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary font-label-lg text-label-lg text-on-primary shadow-md transition-all hover:bg-primary-container active:scale-[0.99] disabled:opacity-70"
           >
-            <span className={`material-symbols-outlined text-[20px] ${saving ? 'animate-spin' : ''}`}>
+            <span aria-hidden="true" className={`material-symbols-outlined text-[20px] ${saving ? 'animate-spin' : ''}`}>
               {saving ? 'refresh' : 'check'}
             </span>
             <span>{saving ? 'Menyimpan...' : note ? 'Simpan Perubahan' : 'Simpan Catatan'}</span>

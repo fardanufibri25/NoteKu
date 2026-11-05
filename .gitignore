@@ -5,5 +5,5 @@ dev-dist
 .DS_Store
 *.local
 .vercel
-
-.vercel
+.codex
+.gemini

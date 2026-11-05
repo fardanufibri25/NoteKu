@@ -12,7 +12,7 @@ export default function Fab({ label = '' }) {
             label ? 'gap-2 pl-4 pr-5' : 'w-14'
           }`}
         >
-          <span className="material-symbols-outlined text-[24px]">add</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[24px]">add</span>
           {label && <span className="font-label-lg text-label-lg font-bold tracking-wide">{label}</span>}
         </button>
       </div>

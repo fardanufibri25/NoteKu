@@ -51,7 +51,7 @@ export default function NoteDetail({ id }) {
               onClick={back}
               className="inline-flex items-center gap-space-xs rounded-xl bg-surface-container-low px-3 py-2 text-on-surface transition-colors hover:bg-surface-container"
             >
-              <span className="material-symbols-outlined text-[18px]">arrow_back</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">arrow_back</span>
               <span className="font-label-md text-label-md">Kembali ke Catatan</span>
             </button>
             <div className="flex shrink-0 items-center gap-space-xs">
@@ -60,7 +60,7 @@ export default function NoteDetail({ id }) {
                 onClick={() => navigate(`/notes/${note.id}/edit`)}
                 className="inline-flex h-10 items-center gap-1.5 rounded-xl bg-primary-fixed px-3.5 text-on-primary-fixed shadow-sm transition-colors hover:bg-primary-fixed-dim"
               >
-                <span className="material-symbols-outlined text-[18px]">edit</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px]">edit</span>
                 <span className="font-label-md text-label-md">Edit</span>
               </button>
               <button
@@ -69,7 +69,7 @@ export default function NoteDetail({ id }) {
                 onClick={() => setConfirming(true)}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-error-container text-on-error-container shadow-sm transition-opacity hover:opacity-90"
               >
-                <span className="material-symbols-outlined text-[20px]">delete</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[20px]">delete</span>
               </button>
             </div>
           </div>
@@ -78,25 +78,25 @@ export default function NoteDetail({ id }) {
             <div className="flex flex-wrap items-center justify-between gap-2">
               <CourseBadge course={note.course} className="gap-1.5 px-3 py-1" />
               <span className="inline-flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-                <span className="material-symbols-outlined text-[14px]">timer</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[14px]">timer</span>
                 {readingMinutes(note.content)} mnt baca
               </span>
             </div>
-            <h1 className="font-headline-lg-mobile text-headline-lg-mobile leading-tight text-on-surface">{note.title}</h1>
+            <h2 className="font-headline-lg-mobile text-headline-lg-mobile leading-tight text-on-surface">{note.title}</h2>
             <div className="flex flex-col gap-1.5 pt-1 font-body-sm text-body-sm text-on-surface-variant">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-outline">calendar_today</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-outline">calendar_today</span>
                 <span>Dibuat: {formatDateTime(note.createdAt)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-outline">update</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-outline">update</span>
                 <span>Terakhir diperbarui: {formatDateTime(note.updatedAt)}</span>
               </div>
             </div>
             <div className="mt-1 flex items-center gap-2.5 rounded-xl bg-tertiary-fixed p-2.5 text-on-tertiary-fixed-variant shadow-sm">
               <div className="flex items-center gap-0.5 text-tertiary">
-                <span className="material-symbols-outlined text-[18px]">check_circle</span>
-                <span className="material-symbols-outlined text-[16px]">save</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px]">check_circle</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[16px]">save</span>
               </div>
               <div className="flex flex-col">
                 <span className="font-label-md text-label-md leading-none">Tersimpan di Penyimpanan Lokal</span>

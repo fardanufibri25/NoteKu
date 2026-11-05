@@ -10,20 +10,45 @@ export default function ConfirmDialog({
   onConfirm,
   onCancel,
 }) {
+  const dialogRef = useRef(null)
   const cancelRef = useRef(null)
+  const onCancelRef = useRef(onCancel)
+  const busyRef = useRef(busy)
+  onCancelRef.current = onCancel
+  busyRef.current = busy
 
   useEffect(() => {
+    const previous = document.activeElement
     cancelRef.current?.focus()
     const onKey = (event) => {
-      if (event.key === 'Escape') onCancel()
+      if (event.key === 'Escape' && !busyRef.current) {
+        event.preventDefault()
+        onCancelRef.current()
+        return
+      }
+      if (event.key !== 'Tab') return
+      const focusable = dialogRef.current?.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      )
+      if (!focusable?.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
     }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
+      if (previous instanceof HTMLElement) previous.focus()
     }
-  }, [onCancel])
+  }, [])
 
   return (
     <div
@@ -33,6 +58,7 @@ export default function ConfirmDialog({
       }}
     >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="confirm-title"
@@ -44,7 +70,7 @@ export default function ConfirmDialog({
               danger ? 'bg-error-container text-error' : 'bg-primary-fixed text-primary'
             }`}
           >
-            <span className="material-symbols-outlined text-[24px]">{danger ? 'warning' : 'help'}</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[24px]">{danger ? 'warning' : 'help'}</span>
           </div>
           <div className="min-w-0">
             <h2 id="confirm-title" className="font-headline-sm text-headline-sm text-on-surface">
@@ -72,9 +98,9 @@ export default function ConfirmDialog({
             }`}
           >
             {busy ? (
-              <span className="material-symbols-outlined animate-spin text-[18px]">refresh</span>
+              <span aria-hidden="true" className="material-symbols-outlined animate-spin text-[18px]">refresh</span>
             ) : (
-              <span className="material-symbols-outlined text-[18px]">{danger ? 'delete_forever' : 'check'}</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{danger ? 'delete_forever' : 'check'}</span>
             )}
             {busy ? 'Memproses...' : confirmLabel}
           </button>

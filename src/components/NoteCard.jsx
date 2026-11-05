@@ -1,17 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { formatDate, readingMinutes, timeAgo } from '../lib/format'
 import { navigate } from '../hooks/useHashRoute'
 import CourseBadge from './CourseBadge'
 
 export default function NoteCard({ note, recent = false, onRequestDelete }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef(null)
   const detailHref = `#/notes/${note.id}`
 
   useEffect(() => {
     if (!menuOpen) return undefined
     const close = () => setMenuOpen(false)
+    const onKey = (event) => {
+      if (event.key !== 'Escape') return
+      setMenuOpen(false)
+      menuButtonRef.current?.focus()
+    }
     document.addEventListener('click', close)
-    return () => document.removeEventListener('click', close)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('click', close)
+      document.removeEventListener('keydown', onKey)
+    }
   }, [menuOpen])
 
   return (
@@ -20,13 +30,14 @@ export default function NoteCard({ note, recent = false, onRequestDelete }) {
         <div className="flex min-w-0 flex-wrap items-center gap-space-xs">
           <CourseBadge course={note.course} />
           <span className="flex items-center gap-0.5 font-body-sm text-body-sm text-on-surface-variant">
-            <span className="material-symbols-outlined text-[13px]">{recent ? 'schedule' : 'calendar_today'}</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[13px]">{recent ? 'schedule' : 'calendar_today'}</span>
             {recent ? timeAgo(note.updatedAt) : formatDate(note.updatedAt)}
           </span>
         </div>
         {onRequestDelete && (
           <div className="relative shrink-0">
             <button
+              ref={menuButtonRef}
               type="button"
               aria-label={`Aksi untuk ${note.title}`}
               aria-expanded={menuOpen}
@@ -34,13 +45,13 @@ export default function NoteCard({ note, recent = false, onRequestDelete }) {
                 event.stopPropagation()
                 setMenuOpen((open) => !open)
               }}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-outline transition-colors hover:bg-surface-container-high hover:text-on-surface"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-outline transition-colors hover:bg-surface-container-high hover:text-on-surface"
             >
-              <span className="material-symbols-outlined text-[20px]">more_vert</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">more_vert</span>
             </button>
             {menuOpen && (
               <div
-                className="absolute right-0 top-9 z-30 w-36 rounded-xl bg-surface-container-lowest py-1.5 shadow-xl"
+                className="absolute right-0 top-12 z-30 w-36 rounded-xl bg-surface-container-lowest py-1.5 shadow-xl"
                 onClick={(event) => event.stopPropagation()}
               >
                 <button
@@ -48,7 +59,7 @@ export default function NoteCard({ note, recent = false, onRequestDelete }) {
                   onClick={() => navigate(`/notes/${note.id}/edit`)}
                   className="flex w-full items-center gap-2 px-3 py-2 text-left font-label-md text-label-md text-on-surface hover:bg-surface-container"
                 >
-                  <span className="material-symbols-outlined text-[16px] text-primary">edit</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-primary">edit</span>
                   Edit Catatan
                 </button>
                 <button
@@ -59,7 +70,7 @@ export default function NoteCard({ note, recent = false, onRequestDelete }) {
                   }}
                   className="flex w-full items-center gap-2 px-3 py-2 text-left font-label-md text-label-md text-error hover:bg-error-container"
                 >
-                  <span className="material-symbols-outlined text-[16px]">delete</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px]">delete</span>
                   Hapus
                 </button>
               </div>
@@ -77,7 +88,7 @@ export default function NoteCard({ note, recent = false, onRequestDelete }) {
 
       <div className="flex items-center justify-between gap-2 pt-1">
         <div className="flex min-w-0 items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-          <span className="material-symbols-outlined text-[15px] text-tertiary">check_circle</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[15px] text-tertiary">check_circle</span>
           <span className="truncate">Tersimpan lokal</span>
           <span className="hidden sm:inline">• {readingMinutes(note.content)} mnt baca</span>
         </div>
@@ -86,7 +97,7 @@ export default function NoteCard({ note, recent = false, onRequestDelete }) {
           className="flex shrink-0 items-center gap-0.5 font-label-md text-label-md text-primary hover:underline"
         >
           Baca
-          <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[16px]">chevron_right</span>
         </a>
       </div>
     </article>

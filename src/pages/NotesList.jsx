@@ -74,7 +74,7 @@ export default function NotesList({ initialQuery = '' }) {
           onClick={() => navigate('/new')}
           className="flex shrink-0 items-center gap-1 rounded-xl bg-primary px-3 py-2 text-on-primary shadow-sm transition-transform hover:opacity-95 active:scale-95"
         >
-          <span className="material-symbols-outlined text-[18px]">add</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[18px]">add</span>
           <span className="font-label-md text-label-md">Baru</span>
         </button>
       </div>
@@ -82,13 +82,13 @@ export default function NotesList({ initialQuery = '' }) {
       <div className="relative my-space-sm w-full">
         <div className="relative flex items-center overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm">
           <span className="pointer-events-none ml-3.5 text-[20px] text-outline">
-            <span className="material-symbols-outlined">search</span>
+            <span aria-hidden="true" className="material-symbols-outlined">search</span>
           </span>
           <input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             aria-label="Cari topik, kode, atau materi"
-            className="h-11 w-full bg-transparent pl-2.5 pr-9 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none"
+            className="h-11 w-full bg-transparent pl-2.5 pr-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/75 focus:outline-none"
             placeholder="Cari topik, kode, atau materi..."
             type="text"
           />
@@ -97,9 +97,9 @@ export default function NotesList({ initialQuery = '' }) {
               type="button"
               aria-label="Hapus pencarian"
               onClick={() => setSearch('')}
-              className="absolute right-3 text-outline hover:text-on-surface"
+              className="absolute right-1 flex h-10 w-10 items-center justify-center rounded-full text-outline hover:bg-surface-container hover:text-on-surface"
             >
-              <span className="material-symbols-outlined text-[18px]">cancel</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">cancel</span>
             </button>
           )}
         </div>
@@ -150,13 +150,13 @@ export default function NotesList({ initialQuery = '' }) {
 
       <div className="mb-space-md flex items-center gap-3 rounded-xl bg-surface-container-low p-space-sm">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary-fixed text-on-secondary-fixed">
-          <span className="material-symbols-outlined text-[22px]">auto_stories</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[22px]">auto_stories</span>
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <span className="truncate font-label-md text-label-md font-semibold text-on-surface">Ruang belajar saya</span>
             <span className="flex shrink-0 items-center gap-0.5 font-label-sm text-label-sm font-semibold text-tertiary">
-              <span className="material-symbols-outlined text-[14px]">offline_pin</span> Lokal
+              <span aria-hidden="true" className="material-symbols-outlined text-[14px]">offline_pin</span> Lokal
             </span>
           </div>
           <p className="truncate font-body-sm text-body-sm text-on-surface-variant">
