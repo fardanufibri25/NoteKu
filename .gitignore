@@ -1,0 +1,9 @@
+node_modules
+dist
+dev-dist
+.vscode
+.DS_Store
+*.local
+.vercel
+
+.vercel
