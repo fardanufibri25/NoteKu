@@ -7,7 +7,7 @@ PWA catatan kuliah untuk mahasiswa. Catatan dibuat, dibaca, diedit, dihapus, dic
 difilter berdasarkan mata kuliah. Seluruh data disimpan di **IndexedDB** perangkat sehingga
 aplikasi tetap berfungsi saat offline.
 
-Tugas akhir Praktikum Pengembangan Perangkat Bergerak (PPB) — Modul 5.
+Responsi Praktikum Pengembangan Perangkat Bergerak (PPB) — Modul 5.
 
 ## Identitas
 
