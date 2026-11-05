@@ -1,5 +1,8 @@
 # NoteKu — Catatan Kuliah
 
+Repository: https://github.com/fardanufibri25/NoteKu  
+Produksi: https://noteku-rho.vercel.app
+
 PWA catatan kuliah untuk mahasiswa. Catatan dibuat, dibaca, diedit, dihapus, dicari, dan
 difilter berdasarkan mata kuliah. Seluruh data disimpan di **IndexedDB** perangkat sehingga
 aplikasi tetap berfungsi saat offline.
